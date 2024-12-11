@@ -1,0 +1,11 @@
+- name: Deploy Microservices using Kubernetes Manifests
+  hosts: k8s-master
+  vars_files:
+    - ../vars/microservices.yml
+  tasks:
+    - name: Apply Kubernetes manifests for microservices
+      kubernetes.core.k8s:
+        state: present
+        src: "{{ item.manifest }}"
+        kubeconfig: "{{ kubeconfig }}"
+      loop: "{{ microservices }}"

@@ -1,0 +1,8 @@
+microservices:
+  - name: payment-service
+    manifest: ../files/manifests/payment-service.yml
+    namespace: payment
+
+  - name: notification-service
+    manifest: ../files/manifests/notification-service.yml
+    namespace: notification

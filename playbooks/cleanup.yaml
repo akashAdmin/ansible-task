@@ -1,0 +1,11 @@
+- name: Cleanup Microservices using Kubernetes Manifests
+  hosts: k8s-master
+  vars_files:
+    - ../vars/microservices.yml
+  tasks:
+    - name: Delete Kubernetes resources for microservices
+      kubernetes.core.k8s:
+        state: absent
+        src: "{{ item.manifest }}"
+        kubeconfig: "{{ kubeconfig }}"
+      loop: "{{ microservices }}"

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+  namespace: payment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: payment-service # Ensure this matches the template labels
+  template:
+    metadata:
+      labels:
+        app: payment-service
+    spec:
+      containers:
+        - name: payment-service
+          image: your-dockerhub-username/payment-service:latest
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  namespace: payment
+spec:
+  selector:
+    app: payment-service # Ensure this matches the deployment's template labels
+  ports:
+    - protocol: TCP
+      port: 80
